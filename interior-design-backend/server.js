@@ -11,8 +11,8 @@ const sharp = require('sharp');
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Enable CORS to allow requests from your frontend (localhost:5173)
-app.use(cors({ origin: 'http://localhost:5173' }));
+// Enable CORS to allow requests from your frontend 
+app.use(cors({ origin: '*' }));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
