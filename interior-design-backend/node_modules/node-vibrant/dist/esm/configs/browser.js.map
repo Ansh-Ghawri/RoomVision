@@ -1,0 +1,1 @@
+{"version":3,"file":"browser.js","sources":["../../../src/configs/browser.ts"],"sourcesContent":["import { BrowserImage } from \"@vibrant/image-browser\";\nimport { Vibrant } from \"./config\";\n\nVibrant.DefaultOpts.ImageClass = BrowserImage;\n\nexport { Vibrant };\n"],"names":[],"mappings":";;;;AAGA,QAAQ,YAAY,aAAa;"}

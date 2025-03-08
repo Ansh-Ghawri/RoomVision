@@ -1,0 +1,1 @@
+{"version":3,"file":"throw.cjs","sources":["../../src/throw.ts"],"sourcesContent":["throw new Error(\n\t`There is no default export in this module. Please use named imports like \"node-vibrant/browser\", \"node-vibrant/node\", or \"node-vibrant/worker\".`,\n);\n\nexport {};\n"],"names":[],"mappings":";AAAA,MAAM,IAAI;AAAA,EACT;AACD;"}

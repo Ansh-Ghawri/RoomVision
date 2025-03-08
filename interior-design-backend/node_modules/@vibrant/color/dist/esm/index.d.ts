@@ -1,0 +1,88 @@
+export * from './converter.js';
+/**
+ * @returns `true` if the color is to be kept.
+ */
+export interface Filter {
+    (red: number, green: number, blue: number, alpha: number): boolean;
+}
+/**
+ * 3d floating pointer vector
+ */
+export type Vec3 = [number, number, number];
+/**
+ * The layout for a node-vibrant Palette. Allows you to keep track of
+ */
+export interface Palette {
+    Vibrant: Swatch | null;
+    Muted: Swatch | null;
+    DarkVibrant: Swatch | null;
+    DarkMuted: Swatch | null;
+    LightVibrant: Swatch | null;
+    LightMuted: Swatch | null;
+    [name: string]: Swatch | null;
+}
+/**
+ * Represents a color swatch generated from an image's palette.
+ */
+export declare class Swatch {
+    static applyFilters(colors: Swatch[], filters: Filter[]): Swatch[];
+    /**
+     * Make a value copy of a swatch based on a previous one. Returns a new Swatch instance
+     * @param {Swatch} swatch
+     */
+    static clone(swatch: Swatch): Swatch;
+    private _rgb;
+    private _population;
+    private _hsl;
+    private _yiq;
+    private _hex;
+    /**
+     * The red value in the RGB value
+     */
+    get r(): number;
+    /**
+     * The green value in the RGB value
+     */
+    get g(): number;
+    /**
+     * The blue value in the RGB value
+     */
+    get b(): number;
+    /**
+     * The color value as a rgb value
+     */
+    get rgb(): Vec3;
+    /**
+     * The color value as a hsl value
+     */
+    get hsl(): Vec3;
+    /**
+     * The color value as a hex string
+     */
+    get hex(): string;
+    get population(): number;
+    /**
+     * Get the JSON object for the swatch
+     */
+    toJSON(): {
+        rgb: Vec3;
+        population: number;
+    };
+    private getYiq;
+    private _titleTextColor;
+    private _bodyTextColor;
+    /**
+     * Returns an appropriate color to use for any 'title' text which is displayed over this Swatch's color.
+     */
+    get titleTextColor(): string;
+    /**
+     * Returns an appropriate color to use for any 'body' text which is displayed over this Swatch's color.
+     */
+    get bodyTextColor(): string;
+    /**
+     * Internal use.
+     * @param rgb `[r, g, b]`
+     * @param population Population of the color in an image
+     */
+    constructor(rgb: Vec3, population: number);
+}

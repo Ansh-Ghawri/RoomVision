@@ -1,0 +1,1 @@
+{"version":3,"file":"browser.cjs","sources":["../../src/browser.ts"],"sourcesContent":["import { Vibrant } from \"./configs/browser\";\nimport { pipeline } from \"./pipeline\";\n\nVibrant.use(pipeline);\n\nexport { Vibrant };\n"],"names":["Vibrant","pipeline"],"mappings":";;;;;;AAGAA,KAAAA,QAAQ,IAAIC,MAAAA,QAAQ;;;;;"}

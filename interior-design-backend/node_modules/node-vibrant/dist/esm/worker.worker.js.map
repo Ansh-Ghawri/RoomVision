@@ -1,0 +1,1 @@
+{"version":3,"file":"worker.worker.js","sources":["../../src/worker.worker.ts"],"sourcesContent":["import { runPipelineInWorker } from \"@vibrant/core\";\nimport { pipeline } from \"./pipeline\";\n\nrunPipelineInWorker(self, pipeline);\n"],"names":[],"mappings":";;AAGA,oBAAoB,MAAM,QAAQ;"}

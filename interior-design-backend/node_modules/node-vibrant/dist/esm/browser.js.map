@@ -1,0 +1,1 @@
+{"version":3,"file":"browser.js","sources":["../../src/browser.ts"],"sourcesContent":["import { Vibrant } from \"./configs/browser\";\nimport { pipeline } from \"./pipeline\";\n\nVibrant.use(pipeline);\n\nexport { Vibrant };\n"],"names":[],"mappings":";;;;;AAGA,QAAQ,IAAI,QAAQ;"}
