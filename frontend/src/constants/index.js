@@ -14,7 +14,8 @@ export const ANIMATION_TIMINGS = {
 
 // API endpoints
 export const API_ENDPOINTS = {
-  UPLOAD: '/upload'
+  UPLOAD: '/upload',
+  PROFILE: '/api/profile'
 };
 
 // Loading progress thresholds

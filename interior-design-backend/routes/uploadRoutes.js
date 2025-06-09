@@ -26,7 +26,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // API endpoint for file upload and analysis
-router.post('/upload', upload.array('file'), async (req, res) => {
+router.post('/', upload.array('file'), async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: 'No files uploaded' });

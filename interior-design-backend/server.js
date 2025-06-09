@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const uploadRoutes = require('./routes/uploadRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -10,10 +11,13 @@ const port = process.env.PORT || 5000;
 // Enable CORS to allow requests from your frontend 
 app.use(cors({ origin: '*' }));
 
+app.use(express.json());
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Routes
-app.use('/', uploadRoutes);
+app.use('/upload', uploadRoutes);
+app.use('/api/profile', profileRoutes);
 
 // Serve uploaded files statically
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
