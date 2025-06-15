@@ -3,12 +3,18 @@ const { generateComplementaryColors } = require('../utils/colorUtils');
 const { extractDominantColors } = require('./imageAnalysisService');
 
 // Generate design suggestions based on detected objects
-async function generateSuggestions(detectedObjects, filePath) {
+async function generateSuggestions(detectedObjects, filePath, fallbackColors = null) {
   const suggestions = [];
   const commonObjects = ['chair', 'table', 'sofa', 'couch', 'lamp', 'bed', 'mirror', 'rug'];
 
-  // Extract dominant colors from the image using Sharp
-  const dominantColors = await extractDominantColors(filePath);
+  // Extract dominant colors from the image using Sharp, or use fallback colors
+  let dominantColors;
+  if (fallbackColors) {
+    dominantColors = fallbackColors;
+    console.log('Using fallback colors for suggestions');
+  } else {
+    dominantColors = await extractDominantColors(filePath);
+  }
 
   // Filter and collect all detected objects that meet the confidence threshold
   const validObjects = detectedObjects
@@ -16,11 +22,23 @@ async function generateSuggestions(detectedObjects, filePath) {
     .map(obj => ({ label: obj.label, score: obj.score }));
 
   if (validObjects.length === 0) {
+    // Generate color-based suggestions when no objects are detected
+    let colorSuggestion = 'No specific furniture detected.';
+    
+    if (dominantColors && !dominantColors.error) {
+      const colorPalette = generateComplementaryColors(dominantColors.dominant);
+      colorSuggestion += ` Based on your room's color scheme (${dominantColors.dominant}), consider adding furniture in complementary colors like ${colorPalette.join(', ')}.`;
+    } else {
+      colorSuggestion += ' Try uploading a clearer room image with furniture!';
+    }
+
     suggestions.push({
       filename: path.basename(filePath),
       detectedObjects: [],
       dominantColors: dominantColors.error ? null : dominantColors,
-      suggestion: 'No specific furniture detected. Try uploading a room image with furniture!',
+      suggestion: colorSuggestion,
+      type: 'color-based',
+      confidence: fallbackColors ? 'low' : 'medium'
     });
   } else {
     // Generate a single recommendation based on the most prominent object
@@ -31,12 +49,20 @@ async function generateSuggestions(detectedObjects, filePath) {
     // Add a recommendation based on the primary object
     suggestionText += getSuggestionForObject(primaryObject.label);
 
+    // Add color-based suggestions if available
+    if (dominantColors && !dominantColors.error) {
+      const colorPalette = generateComplementaryColors(dominantColors.dominant);
+      suggestionText += ` The room's color palette suggests using ${colorPalette.slice(0, 2).join(' or ')} for accent pieces.`;
+    }
+
     suggestions.push({
       filename: path.basename(filePath),
       detectedObjects: validObjects,
       dominantColors: dominantColors.error ? null : dominantColors,
-      colorPalette: generateComplementaryColors(dominantColors.dominant),
+      colorPalette: dominantColors && !dominantColors.error ? generateComplementaryColors(dominantColors.dominant) : null,
       suggestion: suggestionText,
+      type: 'object-based',
+      confidence: fallbackColors ? 'medium' : 'high'
     });
   }
 

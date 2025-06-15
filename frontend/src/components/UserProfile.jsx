@@ -38,16 +38,16 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-lg max-w-lg mx-auto mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-purple-700">Your Style Profile</h2>
+    <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg max-w-lg mx-auto mt-10">
+      <h2 className="text-2xl font-bold mb-6 text-purple-700 dark:text-purple-300">Your Style Profile</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-gray-700 font-medium mb-2">Preferred Style</label>
+          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">Preferred Style</label>
           <select
             name="style"
             value={form.style}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md p-2"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 bg-transparent text-gray-800 dark:text-gray-100"
             required
           >
             <option value="">Select a style</option>
@@ -57,7 +57,7 @@ const UserProfile = () => {
           </select>
         </div>
         <div>
-          <label className="block text-gray-700 font-medium mb-2">Favorite Color</label>
+          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">Favorite Color</label>
           <div className="flex gap-2 mb-2">
             {colorOptions.map((color) => (
               <button
@@ -72,13 +72,13 @@ const UserProfile = () => {
           </div>
         </div>
         <div>
-          <label className="block text-gray-700 font-medium mb-2">Budget (USD)</label>
+          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">Budget (USD)</label>
           <input
             type="number"
             name="budget"
             value={form.budget}
             onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md p-2"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 bg-transparent text-gray-800 dark:text-gray-100"
             min="0"
             placeholder="e.g. 2000"
             required
